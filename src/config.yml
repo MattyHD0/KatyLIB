@@ -1,0 +1,56 @@
+armor:
+  material: LEATHER_BOOTS
+  amount: 1
+  name: '&e&lFlash Boots'
+  lore:
+    - '&8Special Boots'
+    - ''
+    - '&7Health: &6{GENERIC_MAX_HEALTH_INT}'
+    - '&7Attack Speed: &6{GENERIC_ATTACK_SPEED_INT}'
+    - '&7Movement Speed: &6{GENERIC_MOVEMENT_SPEED}'
+  leatherarmor:
+    color: '255, 0, 0'
+  flags:
+    - 'HIDE_ENCHANTS'
+  enchantments:
+    - 'DIG_SPEED 1'
+  attributes:
+    - 'GENERIC_ATTACK_SPEED 1 FEET'
+    - 'GENERIC_MAX_HEALTH 20 FEET'
+    - 'GENERIC_MOVEMENT_SPEED 0.05 FEET'
+
+potion:
+  material: POTION
+  amount: 1
+  name: '&c&lHealth Potion'
+  lore:
+    - '&8Special Potion'
+    - ''
+    - '&a&l+ &7Give you a lot of speed!!!!1!'
+  potion:
+    color: '255, 0, 0'
+    effects:
+      - 'HEAL 1 100 true true'
+      - 'HEALTH_BOOST 1 100 true true'
+  enchantments:
+    - 'DIG_SPEED 1'
+  attributes:
+    - 'GENERIC_ATTACK_SPEED 1 FEET'
+    - 'GENERIC_MAX_HEALTH 20 FEET'
+    - 'GENERIC_MOVEMENT_SPEED 0.05 FEET'
+
+
+book:
+  material: WRITTEN_BOOK
+  amount: 1
+  name: '&e&lFlash Book'
+  lore:
+    - '&8Special Book'
+  book:
+    title: '&6&lTesting Book'
+    generation: ORIGINAL
+    author: '&eFlash'
+    pages:
+      - '&6Page 1'
+      - '&6Page 2'
+      - '&6Page 3'

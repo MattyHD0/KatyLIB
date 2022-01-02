@@ -1,0 +1,9 @@
+main: me.mattyhd0.katylib.KatyLIBPlugin
+name: KatyLIB
+version: 1.0-BETA
+description: ''
+author: MattyHD0
+commands:
+  kgui:
+    description: Test gui
+    usage: /<command>
