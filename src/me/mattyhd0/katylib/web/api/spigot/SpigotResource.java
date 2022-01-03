@@ -140,7 +140,9 @@ public class SpigotResource {
     }
 
     public String getDownloadUrl(){
-        return ("https://www.spigotmc.org/resources/"+title+"."+id+"/").replaceAll(" ", "-");
+        return ("https://www.spigotmc.org/resources/"+title+"."+id+"/")
+                .replaceAll(" ", "-")
+                .replaceAll("\\?", "");
     }
 
 }
