@@ -20,7 +20,6 @@ public class UpdateChecker {
 
     }
 
-    
     public boolean isRunningLatestVersion() {
         return version.equals(latestVersion);
     }
@@ -37,11 +36,8 @@ public class UpdateChecker {
         return spigotResource;
     }
 
-    public String getDownloadUrl(){
-        return "https://www.spigotmc.org/resources/"+spigotResource.getTitle()+"."+spigotResource.getId()+"/";
+    public boolean requestIsValid() {
+        return spigotResource != null;
     }
 
-    public boolean requestIsValid() {
-        return spigotResource  != null;
-    }
 }

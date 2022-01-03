@@ -27,7 +27,6 @@ public class SpigotResource {
             return username;
         }
 
-
     }
 
     private static class Premium{
@@ -138,6 +137,10 @@ public class SpigotResource {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getDownloadUrl(){
+        return ("https://www.spigotmc.org/resources/"+title+"."+id+"/").replaceAll(" ", "-");
     }
 
 }

@@ -1,6 +1,7 @@
 package me.mattyhd0.katylib.test;
 
 import me.mattyhd0.katylib.KatyLIB;
+import me.mattyhd0.katylib.KatyLIBPlugin;
 import me.mattyhd0.katylib.builders.gui.GuiBuilder;
 import me.mattyhd0.katylib.builders.gui.clickactions.*;
 import me.mattyhd0.katylib.util.ItemStackUtil;
@@ -27,7 +28,7 @@ public class TestCommand implements CommandExecutor {
 
                 // All the code :D
 
-                YMLFile ymlFile = new YMLFile("config.yml", KatyLIB.PLUGIN);
+                YMLFile ymlFile = new YMLFile("config.yml", KatyLIBPlugin.INSTANCE);
                 FileConfiguration config = ymlFile.get();
 
                 GuiBuilder builder = new GuiBuilder()

@@ -1,6 +1,7 @@
 package me.mattyhd0.katylib.files;
 
 import me.mattyhd0.katylib.KatyLIB;
+import me.mattyhd0.katylib.KatyLIBPlugin;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -17,7 +18,7 @@ public class YMLFile {
     public FileConfiguration fileConfiguration;
     
     public YMLFile(String fileName, @Nullable Plugin plugin) {
-        if(plugin == null) this.plugin = KatyLIB.PLUGIN;
+        if(plugin == null) this.plugin = KatyLIBPlugin.INSTANCE;
         this.plugin = plugin;
 
         this.fileName = fileName;
