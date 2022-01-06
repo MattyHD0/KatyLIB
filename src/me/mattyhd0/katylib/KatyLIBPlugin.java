@@ -22,7 +22,7 @@ public class KatyLIBPlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new GuiListener(this), this);
         getServer().getPluginManager().registerEvents(new ScoreboardListener(), this);
 
-        getServer().getPluginCommand("mgui").setExecutor(new TestCommand());
+        getServer().getPluginCommand("kgui").setExecutor(new TestCommand());
 
         ConfigVersionUpdater configVersionUpdater = new ConfigVersionUpdater(new YMLFile("config.yml", this));
 

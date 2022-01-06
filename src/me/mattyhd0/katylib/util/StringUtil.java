@@ -77,12 +77,38 @@ public class StringUtil {
 
     }
 
-    public static String bukkitColorFade(String text, String fadeIn, String fadeOut){
+    public static String bukkitGradient(String text, java.awt.Color gradientStart, java.awt.Color gradientEnd){
 
-        Color c1 = net.md_5.bungee.api.ChatColor.of(fadeIn).getColor();
-        Color c2 = net.md_5.bungee.api.ChatColor.of(fadeOut).getColor();
+        int r1 = gradientStart.getRed(); int r2 = gradientEnd.getRed();
+        int g1 = gradientStart.getGreen(); int g2 = gradientEnd.getGreen();
+        int b1 = gradientStart.getBlue(); int b2 = gradientEnd.getBlue();
 
-        return "NOT WORKING, SORRY :(";
+        int rMath = (r1+r2/2)/text.length(); int rMath2 = (r2-r1)/text.length();
+        int gMath = (g1+g2/2)/text.length(); int gMath2 = (g2-g1)/text.length();
+        int bMath = (b1+b2/2)/text.length(); int bMath2 = (b2-b1)/text.length();
+
+        String coloredText = "";
+
+        for(int i = 1; i < text.length()+1; i++){
+
+            int r = r1 > r2 ? rMath * i : r2-(rMath2)*i;
+            int g = g1 > g2 ? gMath * i : g2-(gMath2)*i;
+            int b = b1 > b2 ? bMath * i : b2-(bMath2)*i;
+
+            coloredText = coloredText + net.md_5.bungee.api.ChatColor.of(new Color(r, g, b)) + text.charAt(i-1);
+
+        }
+
+        return coloredText;
+    }
+
+    public static void main(String[] args){
+
+        System.out.println(bukkitGradient("mi text",
+                new Color(0, 255, 0),
+                new Color(255, 0, 0)
+        ));
+
     }
 
     public static String getRandomString(String characters, int length){
@@ -90,7 +116,7 @@ public class StringUtil {
         String[] chars = characters.split("");
         String text = "";
 
-        for(int i = 0; i < length; i++){
+        for(int i = 0; i < length+1; i++){
 
             double c = Math.random()*(chars.length-1);
             text = text+chars[(int)Math.round(c)];

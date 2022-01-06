@@ -1,5 +1,6 @@
 package me.mattyhd0.katylib;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
@@ -16,6 +17,14 @@ public class SupportedPlugins {
     public void addSupportedPlugin(String plugin){
         supportedPlugins.add(plugin);
     }
+
+    public void addIfHasPlugin(String plugin){
+
+        Plugin pl = Bukkit.getServer().getPluginManager().getPlugin(plugin);
+        if(pl != null && pl.isEnabled()) supportedPlugins.add(plugin);
+
+    }
+
 
     public void removeSupportedPlugin(String plugin){
         supportedPlugins.remove(plugin);

@@ -6,6 +6,7 @@ import me.mattyhd0.katylib.builders.gui.GuiBuilder;
 import me.mattyhd0.katylib.builders.gui.clickactions.*;
 import me.mattyhd0.katylib.util.ItemStackUtil;
 import me.mattyhd0.katylib.files.YMLFile;
+import me.mattyhd0.katylib.util.StringUtil;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,6 +15,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.inventory.ItemStack;
+
+import java.awt.*;
 
 public class TestCommand implements CommandExecutor {
 
@@ -31,8 +34,13 @@ public class TestCommand implements CommandExecutor {
                 YMLFile ymlFile = new YMLFile("config.yml", KatyLIBPlugin.INSTANCE);
                 FileConfiguration config = ymlFile.get();
 
+                String title = StringUtil.bukkitGradient("KatyLIB Test GUI",
+                        new Color(0, 255, 0),
+                        new Color(255, 0, 0)
+                );
+
                 GuiBuilder builder = new GuiBuilder()
-                        .setTitle("&b&c|&c&lTesting &a&lGui&b&k|")
+                        .setTitle(title)
                         .setRows(1)
                         //.setInventoryType(InventoryType.HOPPER)
                         //.setGuiItem(0, ItemStackUtil.getItemStack(Material.NOTE_BLOCK, 1, "", "&6new &7PlaySoundAction(Sound.valueOf(&2\"LEVEL_UP\"&7)&6, &91&6, &91&6&7)"), new PlaySoundAction(Sound.valueOf("LEVEL_UP"), 1, 1))
