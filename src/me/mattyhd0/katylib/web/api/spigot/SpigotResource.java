@@ -1,5 +1,7 @@
 package me.mattyhd0.katylib.web.api.spigot;
 
+import me.mattyhd0.katylib.util.StringUtil;
+
 public class SpigotResource {
 
     private int id;
@@ -140,9 +142,22 @@ public class SpigotResource {
     }
 
     public String getDownloadUrl(){
-        return ("https://www.spigotmc.org/resources/"+title+"."+id+"/")
-                .replaceAll(" ", "-")
-                .replaceAll("\\?", "");
+
+        String url = ("https://www.spigotmc.org/resources/"+title+"."+id+"/").replaceAll(" ", "-");
+        String validChars = StringUtil.ES_LETTERS+StringUtil.ES_LETTERS.toUpperCase()+"0123456789:/.-_";
+        String validUrl = "";
+
+        for(int i = 0; i < url.length(); i++){
+
+            String c = Character.toString(url.charAt(i));
+
+            if(validChars.contains(c)){
+                validUrl = validUrl+c;
+            }
+
+        }
+
+        return validUrl;
     }
 
 }

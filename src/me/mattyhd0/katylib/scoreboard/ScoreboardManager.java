@@ -42,7 +42,7 @@ public class ScoreboardManager {
         sidebar.setDisplaySlot(DisplaySlot.SIDEBAR);
         // Create Teams
         for(int i=0; i<=14; i++) {
-            Team team = scoreboard.registerNewTeam("KoTH_SB_" + i);
+            Team team = scoreboard.registerNewTeam("KatyLIBSB_" + i);
             team.addEntry(genEntry(i));
         }
         player.setScoreboard(scoreboard);
@@ -55,7 +55,7 @@ public class ScoreboardManager {
     }
 
     public void setSlot(int slot, String text) {
-        Team team = scoreboard.getTeam("KoTH_SB_" + slot);
+        Team team = scoreboard.getTeam("KatyLIBSB_" + slot);
         String entry = genEntry(slot);
         if(!scoreboard.getEntries().contains(entry)) {
             sidebar.getScore(entry).setScore(slot);
