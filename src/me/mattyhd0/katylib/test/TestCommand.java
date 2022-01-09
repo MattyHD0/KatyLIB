@@ -34,9 +34,13 @@ public class TestCommand implements CommandExecutor {
                 YMLFile ymlFile = new YMLFile("config.yml", KatyLIBPlugin.INSTANCE);
                 FileConfiguration config = ymlFile.get();
 
-                String title = StringUtil.bukkitGradient("KatyLIB Test GUI",
+                String title = StringUtil.bukkitGradient("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||",
+                        new Color(255, 0, 0),
+                        new Color(255, 255, 0),
                         new Color(0, 255, 0),
-                        new Color(255, 0, 0)
+                        new Color(0, 255, 255),
+                        new Color(0, 0, 255),
+                        new Color(255, 0, 255)
                 );
 
                 GuiBuilder builder = new GuiBuilder()
@@ -53,10 +57,10 @@ public class TestCommand implements CommandExecutor {
                                         new ItemStack(Material.DIAMOND)
                                 ))
                         .setGuiItem(7,
-                                ItemStackUtil.getItemFromConfig(config, "test"),
+                                ItemStackUtil.getItemFromConfig(config, "armor"),
                                 new ExchangeItemStackAction(
                                     new ItemStack(Material.STONE),
-                                    ItemStackUtil.getItemFromConfig(config, "test")
+                                    ItemStackUtil.getItemFromConfig(config, "armor")
                         ));
                 builder = builder.setGuiItem(8, ItemStackUtil.getItemStack(Material.BARRIER, 1, "", "&6new &7CloseInventoryAction()"), new CloseInventoryAction());
 

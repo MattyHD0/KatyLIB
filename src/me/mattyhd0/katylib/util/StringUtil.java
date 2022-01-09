@@ -5,6 +5,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -79,9 +81,9 @@ public class StringUtil {
 
     public static String bukkitGradient(String text, java.awt.Color gradientStart, java.awt.Color gradientEnd){
 
-        int r1 = gradientStart.getRed(); int r2 = gradientEnd.getRed();
-        int g1 = gradientStart.getGreen(); int g2 = gradientEnd.getGreen();
-        int b1 = gradientStart.getBlue(); int b2 = gradientEnd.getBlue();
+        int r1 = gradientEnd.getRed(); int r2 = gradientStart.getRed();
+        int g1 = gradientEnd.getGreen(); int g2 = gradientStart.getGreen();
+        int b1 = gradientEnd.getBlue(); int b2 = gradientStart.getBlue();
 
         int rMath = (r1+r2/2)/text.length(); int rMath2 = (r2-r1)/text.length();
         int gMath = (g1+g2/2)/text.length(); int gMath2 = (g2-g1)/text.length();
@@ -95,6 +97,14 @@ public class StringUtil {
             int g = g1 > g2 ? gMath * i : g2-(gMath2)*i;
             int b = b1 > b2 ? bMath * i : b2-(bMath2)*i;
 
+            if(r > 255) r = 255;
+            if(r < 0) r = 0;
+            if(g > 255) g = 255;
+            if(g < 0) g = 0;
+            if(b > 255) b = 255;
+            if(b < 0) b = 0;
+
+
             coloredText = coloredText + net.md_5.bungee.api.ChatColor.of(new Color(r, g, b)) + text.charAt(i-1);
 
         }
@@ -102,13 +112,41 @@ public class StringUtil {
         return coloredText;
     }
 
-    public static void main(String[] args){
+    public static String bukkitGradient(String text, Color... colors){
 
-        System.out.println(bukkitGradient("mi text",
-                new Color(0, 255, 0),
-                new Color(255, 0, 0)
-        ));
+        int divisions = colors.length-1;
+        int divideEveryChars = text.length()/divisions;
+        List<String> substrings = new ArrayList<>();
+        StringBuilder finalText = new StringBuilder();
 
+        for(int i = 0; i < text.length()+divideEveryChars; i += divideEveryChars){
+
+            if(i+divideEveryChars > text.length() && text.length() > 0) {
+                int lastSub = substrings.size()-1;
+                String latestStr = substrings.get(lastSub);
+                substrings.set(lastSub, latestStr+text.substring(i));
+                break;
+            }
+
+            String sub = text.substring(i, (i+divideEveryChars));
+
+            substrings.add(sub);
+
+        }
+
+        int color = 0;
+        for(String s: substrings){
+            System.out.println(s);
+            finalText.append(
+                    StringUtil.bukkitGradient(s,
+                            colors[color],
+                            colors[color+1]
+                            )
+            );
+            color++;
+        }
+
+        return finalText.toString();
     }
 
     public static String getRandomString(String characters, int length){

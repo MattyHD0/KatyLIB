@@ -172,6 +172,14 @@ public class ItemStackUtil {
                 }
             }
 
+            if(config.contains(key+".custom_model_data")){
+                try {
+                    itemMeta.setCustomModelData(config.getInt(key+".custom_model_data"));
+                } catch (NoSuchMethodError e){
+                    error.addError("The setCustomModelData method does not exist in this version of Spigot");
+                }
+            }
+
             if (flags.size() > 0) {
                 for (String flag : flags) {
 
