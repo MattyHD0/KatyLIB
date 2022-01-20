@@ -14,14 +14,12 @@ public class UpdateChecker {
     public UpdateChecker(@NotNull Plugin plugin, int spigotResourceId){
 
         version = plugin.getDescription().getVersion();
-
         spigotResource = SpigotAPI.getSpigotResource(spigotResourceId);
-        latestVersion = spigotResource.getCurrentVersion();
 
     }
 
     public boolean isRunningLatestVersion() {
-        return version.equals(latestVersion);
+        return version.equals(spigotResource.getCurrentVersion());
     }
 
     public String getVersion() {

@@ -79,7 +79,7 @@ public class StringUtil {
 
     }
 
-    public static String bukkitGradient(String text, java.awt.Color gradientStart, java.awt.Color gradientEnd){
+    public static String bukkitGradient(String text, java.awt.Color gradientStart, java.awt.Color gradientEnd, boolean bold, boolean italic, boolean underline, boolean magic, boolean strikethrough){
 
         int r1 = gradientEnd.getRed(); int r2 = gradientStart.getRed();
         int g1 = gradientEnd.getGreen(); int g2 = gradientStart.getGreen();
@@ -90,6 +90,7 @@ public class StringUtil {
         int bMath = (b1+b2/2)/text.length(); int bMath2 = (b2-b1)/text.length();
 
         String coloredText = "";
+        boolean format = (bold || italic || underline || magic || strikethrough);
 
         for(int i = 1; i < text.length()+1; i++){
 
@@ -104,22 +105,34 @@ public class StringUtil {
             if(b > 255) b = 255;
             if(b < 0) b = 0;
 
+            String c = Character.toString(text.charAt(i-1));
+            if(format) {
+                if (bold) c = net.md_5.bungee.api.ChatColor.BOLD + c;
+                if (italic) c = net.md_5.bungee.api.ChatColor.ITALIC + c;
+                if (underline) c = net.md_5.bungee.api.ChatColor.UNDERLINE + c;
+                if (magic) c = net.md_5.bungee.api.ChatColor.MAGIC + c;
+                if (strikethrough) c = net.md_5.bungee.api.ChatColor.STRIKETHROUGH + c;
+            }
 
-            coloredText = coloredText + net.md_5.bungee.api.ChatColor.of(new Color(r, g, b)) + text.charAt(i-1);
+            coloredText = coloredText + net.md_5.bungee.api.ChatColor.of(new java.awt.Color(r, g, b)) + c;
 
         }
 
         return coloredText;
     }
 
-    public static String bukkitGradient(String text, Color... colors){
+    public static String bukkitGradient(String text, java.awt.Color gradientStart, java.awt.Color gradientEnd){
+        return bukkitGradient(text, gradientStart, gradientEnd, false, false, false, false, false);
+    }
 
-        int divisions = colors.length-1;
-        int divideEveryChars = text.length()/divisions;
+    public static String bukkitGradient(String text, List<java.awt.Color> colors, boolean bold, boolean italic, boolean underline, boolean magic, boolean strikethrough){
+
+        int divisions = colors.size()-1;
+        int divideEveryChars = text.length()/divisions > 0 ? text.length()/divisions : 1;
         List<String> substrings = new ArrayList<>();
         StringBuilder finalText = new StringBuilder();
 
-        for(int i = 0; i < text.length()+divideEveryChars; i += divideEveryChars){
+        for(int i = 0; i <= text.length()+divideEveryChars; i += divideEveryChars){
 
             if(i+divideEveryChars > text.length() && text.length() > 0) {
                 int lastSub = substrings.size()-1;
@@ -129,24 +142,44 @@ public class StringUtil {
             }
 
             String sub = text.substring(i, (i+divideEveryChars));
-
             substrings.add(sub);
 
         }
 
         int color = 0;
         for(String s: substrings){
-            System.out.println(s);
+
+            java.awt.Color color1;
+            java.awt.Color color2;
+
+            try {
+                color1 = colors.get(color);
+                color2 = colors.get(color + 1);
+            } catch (IndexOutOfBoundsException e){
+                color1 = colors.get(colors.size()-1);
+                color2 = colors.get(colors.size()-1);
+            }
+
             finalText.append(
-                    StringUtil.bukkitGradient(s,
-                            colors[color],
-                            colors[color+1]
-                            )
+                    bukkitGradient(s,
+                            color1,
+                            color2,
+                            bold,
+                            italic,
+                            underline,
+                            magic,
+                            strikethrough
+                    )
             );
+
             color++;
         }
 
         return finalText.toString();
+    }
+
+    public static String bukkitGradient(String text, List<java.awt.Color> colors){
+        return bukkitGradient(text, colors, false, false, false, false, false);
     }
 
     public static String getRandomString(String characters, int length){

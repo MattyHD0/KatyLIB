@@ -17,6 +17,8 @@ import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.inventory.ItemStack;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestCommand implements CommandExecutor {
 
@@ -34,13 +36,19 @@ public class TestCommand implements CommandExecutor {
                 YMLFile ymlFile = new YMLFile("config.yml", KatyLIBPlugin.INSTANCE);
                 FileConfiguration config = ymlFile.get();
 
+                List<Color> colorList = new ArrayList<>();
+
+                colorList.add(new Color(255, 0, 0));
+                colorList.add(new Color(255, 255, 0));
+                colorList.add(new Color(0, 255, 0));
+                colorList.add(new Color(0, 255, 255));
+                colorList.add(new Color(0, 0, 255));
+                colorList.add(new Color(255, 0, 255));
+
+
+
                 String title = StringUtil.bukkitGradient("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||",
-                        new Color(255, 0, 0),
-                        new Color(255, 255, 0),
-                        new Color(0, 255, 0),
-                        new Color(0, 255, 255),
-                        new Color(0, 0, 255),
-                        new Color(255, 0, 255)
+                        colorList
                 );
 
                 GuiBuilder builder = new GuiBuilder()

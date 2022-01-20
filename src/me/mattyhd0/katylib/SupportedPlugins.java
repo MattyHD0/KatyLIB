@@ -25,7 +25,6 @@ public class SupportedPlugins {
 
     }
 
-
     public void removeSupportedPlugin(String plugin){
         supportedPlugins.remove(plugin);
     }
