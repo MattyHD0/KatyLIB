@@ -81,31 +81,25 @@ public class StringUtil {
 
     public static String bukkitGradient(String text, java.awt.Color gradientStart, java.awt.Color gradientEnd, boolean bold, boolean italic, boolean underline, boolean magic, boolean strikethrough){
 
-        int r1 = gradientEnd.getRed(); int r2 = gradientStart.getRed();
-        int g1 = gradientEnd.getGreen(); int g2 = gradientStart.getGreen();
-        int b1 = gradientEnd.getBlue(); int b2 = gradientStart.getBlue();
+        float r1 = gradientEnd.getRed(); float r2 = gradientStart.getRed();
+        float g1 = gradientEnd.getGreen(); float g2 = gradientStart.getGreen();
+        float b1 = gradientEnd.getBlue(); float b2 = gradientStart.getBlue();
 
-        int rMath = (r1+r2/2)/text.length(); int rMath2 = (r2-r1)/text.length();
-        int gMath = (g1+g2/2)/text.length(); int gMath2 = (g2-g1)/text.length();
-        int bMath = (b1+b2/2)/text.length(); int bMath2 = (b2-b1)/text.length();
+        float rMath = (r1+r2/2)/text.length(); float rMath2 = (r2-r1)/text.length();
+        float gMath = (g1+g2/2)/text.length(); float gMath2 = (g2-g1)/text.length();
+        float bMath = (b1+b2/2)/text.length(); float bMath2 = (b2-b1)/text.length();
 
         String coloredText = "";
         boolean format = (bold || italic || underline || magic || strikethrough);
 
         for(int i = 1; i < text.length()+1; i++){
 
-            int r = r1 > r2 ? rMath * i : r2-(rMath2)*i;
-            int g = g1 > g2 ? gMath * i : g2-(gMath2)*i;
-            int b = b1 > b2 ? bMath * i : b2-(bMath2)*i;
-
-            if(r > 255) r = 255;
-            if(r < 0) r = 0;
-            if(g > 255) g = 255;
-            if(g < 0) g = 0;
-            if(b > 255) b = 255;
-            if(b < 0) b = 0;
+            float r = r1 > r2 ? rMath * i : r2-(rMath2)*i;
+            float g = g1 > g2 ? gMath * i : g2-(gMath2)*i;
+            float b = b1 > b2 ? bMath * i : b2-(bMath2)*i;
 
             String c = Character.toString(text.charAt(i-1));
+
             if(format) {
                 if (bold) c = net.md_5.bungee.api.ChatColor.BOLD + c;
                 if (italic) c = net.md_5.bungee.api.ChatColor.ITALIC + c;
@@ -114,7 +108,22 @@ public class StringUtil {
                 if (strikethrough) c = net.md_5.bungee.api.ChatColor.STRIKETHROUGH + c;
             }
 
-            coloredText = coloredText + net.md_5.bungee.api.ChatColor.of(new java.awt.Color(r, g, b)) + c;
+            java.awt.Color color;
+            try {
+                color = new java.awt.Color(Math.round(r), Math.round(g), Math.round(b));
+            } catch (IllegalArgumentException e){
+
+                if(r < 0) r = 0;
+                if(r > 255) r = 255;
+                if(g < 0) g = 0;
+                if(g > 255) g = 255;
+                if(b < 0) b = 0;
+                if(b > 255) b = 255;
+
+                color = new java.awt.Color(Math.round(r), Math.round(g), Math.round(b));
+            }
+
+            coloredText = coloredText + net.md_5.bungee.api.ChatColor.of(color) + c;
 
         }
 
