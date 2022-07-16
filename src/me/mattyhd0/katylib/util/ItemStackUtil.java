@@ -4,6 +4,7 @@ import com.google.common.collect.Multimap;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import me.mattyhd0.katylib.Error;
+import me.mattyhd0.katylib.xseries.XMaterial;
 import org.bukkit.Color;
 import org.bukkit.DyeColor;
 import org.bukkit.FireworkEffect;
@@ -101,9 +102,7 @@ public class ItemStackUtil {
             material = material.replace("basehead-", "");
             return getSkullFromValue(material);
         } else {
-            Material finalMaterial = Material.getMaterial(material);
-            if(finalMaterial == null) finalMaterial = Material.STONE;
-            return new ItemStack(finalMaterial);
+            return XMaterial.valueOf(material).parseItem();
         }
 
     }
@@ -135,10 +134,8 @@ public class ItemStackUtil {
         Error error = new Error();
         error.setDescription("These errors were encountered when trying to create an ItemStack instance.");
 
-        String[] material = config.getString(key+".material").split(":");
+        String material = config.getString(key+".material");
 
-        short durability = 0;
-        if(material.length > 1) durability = Short.parseShort(material[1]);
         int amount;
 
         if(config.contains(key+".amount")){
@@ -155,9 +152,9 @@ public class ItemStackUtil {
         List<String> attributes = config.getStringList(key+".attributes");
 
 
-        ItemStack itemStack = getItemStackFromString(material[0]);
+        ItemStack itemStack = getItemStackFromString(material);
         itemStack.setAmount(amount);
-        if(durability != 0) itemStack.setDurability(durability);
+        if(config.contains(key+".data")) itemStack.setDurability((byte)config.getInt(key+".data"));
 
         ItemMeta itemMeta = itemStack.getItemMeta();
 
@@ -198,7 +195,7 @@ public class ItemStackUtil {
                     int level = 0;
                     try {
                         Enchantment enchantment = Enchantment.getByName(ench[0]);
-                        Integer.parseInt(ench[1]);
+                        level = Integer.parseInt(ench[1]);
                         if(enchantment != null) {
                             itemMeta.addEnchant(enchantment, level, true);
                         } else {
